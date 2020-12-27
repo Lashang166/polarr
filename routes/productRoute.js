@@ -12,7 +12,6 @@ class APIfeatures {
     }
     filtering() {
         const queryobj = { ...this.queryString };
-        console.log(queryobj);
         const excludedfields = ['page', 'sort', 'limit'];
         excludedfields.forEach(el => delete queryobj[el]);
         let querystr = JSON.stringify(queryobj);
@@ -34,7 +33,7 @@ class APIfeatures {
     } 
     paginating() {
         const page = this.queryString.page * 1 || 1;
-        const limit = this.queryString.limit * 1 || 5;
+        const limit = this.queryString.limit * 1 || 9;
         const skip = (page - 1) * limit;
         this.query = this.query.skip(skip).limit(limit);
         return this;
@@ -44,7 +43,7 @@ class APIfeatures {
 
 
 //find
-router.get('/', async(req, res) => {
+router.get('/fetch', async(req, res) => {
     try {
         const features = new APIfeatures(Product.find(), req.query)
         .filtering()
@@ -91,7 +90,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}),async (req
 })
 
 //findOne
-router.get('/:id', async(req, res) => {
+router.get('/fetch/:id', async(req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         res.status(200).json({

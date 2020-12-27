@@ -11,7 +11,7 @@ function Header() {
 
     return (
         <header  className="bg-white shadow-sm/ sticky z-50 border-b border-gray-300  md:border-transparent ">
-            <div className="container flex justify-between h-16 md:h-20 px-5 md:px-28  border-b border-gray-300  ">
+            <div className=" w-full flex justify-between h-16 md:h-20 px-5 md:px-28  border-b border-gray-300  ">
                 <div className="flex md:justify-center w-2/4 md:w-1/3 order-1 md:order-2">
                     <h1 className="text-4xl font-bold uppercase flex items-center p-4 font-serif md:hidden">P.</h1>
                     <h1 className="text-4xl font-bold uppercase md:flex items-center p-4 font-serif hidden justify-center">Polar</h1>

@@ -1,10 +1,12 @@
-import React from 'react'
+import React,{ useEffect, useContext } from 'react'
 import IntroSection from '../components/IntroSection'
 import Header from '../components/Header'
 import MainSection from '../components/MainSection'
 import ItemCard from '../components/ItemCard'
 
-import products from "../product"
+//import products from "../product"
+import ProductServices from '../services/ProductServices'
+import { MainContext } from '../context/MainContext'
 
 
 
@@ -12,6 +14,17 @@ import products from "../product"
 
 
 function Shop() {
+
+    const { products, productDispatch } = useContext(MainContext)
+
+    useEffect(() => {
+        ProductServices.fetch()
+            .then(data => {
+                console.log(data.data.products);
+                productDispatch({ type: "PRODUCT_FETCH", payload: data.data.products})
+            })
+    },[])
+
     return (
         <>
          <Header />
@@ -32,9 +45,9 @@ function Shop() {
                     </div>
                     <div className="grid grid-cols-12 gap-2  pt-4 ">
 
-                        { products.map((item) =>(
+                        { products.products.map((item) =>(
 
-                            <div key={item.id} className="col-span-6 sm:col-span-4 bg-white">
+                            <div key={item._id} className="col-span-6 sm:col-span-4 bg-white">
                                 <ItemCard item={item}/>
                             </div>
 
