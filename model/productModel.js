@@ -32,7 +32,8 @@ const ProductSchema = new mongoose.Schema({
         type: Array,
     },
     categories: {
-        type: Array
+        type: String
+
     }
 
 },{timestamps: true});

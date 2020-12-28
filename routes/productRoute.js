@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const e = require("express");
 const passport = require('passport');
 const passportConfig = require('../libs/passport');
 
@@ -97,6 +96,25 @@ router.get('/fetch/:id', async(req, res) => {
             status: 'success',
             data: product
         })
+    } catch (error) {
+        res.status(404).json({
+            status: 'fail',
+            message: error
+        })
+    }
+});
+
+//relateitem
+
+router.get('/relate', async (req, res) => {
+    try {
+        const cate = req.query.cate;
+        const relate = await Product.find({categories: { $all : [cate]}});
+        res.status(200).json({
+            status: 'success',
+            data: relate
+        })
+
     } catch (error) {
         res.status(404).json({
             status: 'fail',

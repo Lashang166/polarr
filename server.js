@@ -20,6 +20,7 @@ mongosoe.connect(db,{
 
 app.use('/user', require('./routes/userRoute'));
 app.use('/product', require('./routes/productRoute'));
+app.use('/category', require('./routes/categoryRoute'));
 
 
 const PORT = process.env.PORT;

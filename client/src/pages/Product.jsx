@@ -29,9 +29,11 @@ function Product( props ) {
     const { cart, cartDispatch, products, productDispatch } = useContext(MainContext);
 
     const [image, setImage] = useState('');
-     const [qty, setQty] = useState(1);
-     const id = props.match.params.id;
-     const [add, setAdd] = useState(false);
+    const [qty, setQty] = useState(1);
+    const id = props.match.params.id;
+    const [add, setAdd] = useState(false);
+    const [relate, setRelate] = useState(null);
+    const [items, setItems] = useState([]);
 
     const [itemSelected, setItemSelected] = useState({
         id: '',
@@ -53,8 +55,11 @@ function Product( props ) {
                 setItemSelected(prev => ({...prev,
                     color: data.data.colors[0],
                     size: data.data.size[0]
-                }));
+                }));   
+                    ProductServices.relate(data.data.categories)
+                        .then(data => setRelate(data.data))
             })
+
     }, [])
 
 
@@ -167,9 +172,7 @@ function Product( props ) {
                 </div>
                 <div className="flex space-x-3">
                     <h4 className="font-semibold">Categories: </h4>
-                    { products.product && products.product.categories.map((cate, index) => (
-                            <p key={index} className="text-gray-400">{cate}</p>
-                    ))}
+                        <p className="text-gray-400">{products.product && products.product.categories}</p>
                 </div>
                 <div className="flex space-x-3">
                     <h4 className="font-semibold">Tag: </h4>
@@ -208,19 +211,20 @@ function Product( props ) {
                 <h3 className="text-2xl font-medium">Relate Items</h3>
                 </div>
                 <Slider {...setting} className="w-full grid grid-cols-12 bg-red-600/ mt-7 pt-3 gap-3">
-                    {  products.products.map((item) =>(
-
-                    <div className="col-span-6 sm:col-span-3 bg-white sm:px-4">
-                        <ItemCard item={item}/>
-                    </div>
                     
-                    ))
-                    }
+                    {relate && relate.map((item, i) => (
+                        <div key={i} className="col-span-6 sm:col-span-3 bg-white sm:px-4">
+                            <ItemCard item={item}/>
+                        </div>
+                    )) }
+
+                    
+                   
                 </Slider>
 
        
         
-      </MainSection>
+      </MainSection>   
       <Footer />
     </>
   );
