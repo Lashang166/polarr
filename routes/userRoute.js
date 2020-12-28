@@ -1,28 +1,30 @@
 const router = require("express").Router();
 const User = require('../model/userModel');
-const signToken = require('../libs/jwt');
+const signToken = require('../libs/jwt'); 
 const passport = require('passport');
 const passportConfig = require('../libs/passport');
 
-router.post('/signup', (req, res) => {
-    const { email, username, password} = req.body;
-    User.findOne({username}, (err,user) => {
-        if(err){
-            res.status(500).json({message: {msg: "Error has occured1", magErr: true}});
-        }
+router.post('/signup', async (req, res) => {  
+    try {
+        const { email, username, password} = req.body;
+        const user = await User.findOne({username});
         if(user){
-            res.status(200).json({message: {msg: "This username is already taken", msgErr: true}});
+            res.status(200).json({
+                message: {msg: "This username is already taken", 
+                msgErr: true}
+            })
         }else{
             const newUser = new User({email, username, password});
-            newUser.save(err => {
-                if(err)
-                    res.status(500).json({message: {msg: "Error has occured2", magErr: true}});
-                else
-                    res.status(201).json({message: {msg: "Account successfully created", magErr: true}});
-
-            });
+            newUser.save()
+            res.status(201).json({message: {msg: "Account successfully created", magErr: true}});
         }
-    });
+    } catch (error) {
+        res.status(505).json({
+            status: 'fail',
+            message: error
+        })
+    }
+
 });
 
 

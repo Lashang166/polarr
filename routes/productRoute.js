@@ -4,6 +4,7 @@ const passportConfig = require('../libs/passport');
 
 const Product = require('../model/productModel');
 
+
 class APIfeatures {
     constructor(query, queryString) {
         this.query = query;
@@ -67,7 +68,6 @@ router.get('/fetch', async(req, res) => {
 })
 
 /*create product */
-
 router.post('/create', passport.authenticate('jwt', {session: false}),async (req,res) => {
     if(req.user.role === 'admin'){
         try {
@@ -104,8 +104,8 @@ router.get('/fetch/:id', async(req, res) => {
     }
 });
 
-//relateitem
 
+//relateitem
 router.get('/relate', async (req, res) => {
     try {
         const cate = req.query.cate;

@@ -1,12 +1,34 @@
-import React,{ useState } from 'react'
+import React,{ useState, useContext } from 'react'
 import { FaShoppingBag, FaUserAlt, FaAlignRight, FaTimes } from "react-icons/fa";
+import { IoExitSharp } from "react-icons/io5";
 import { GoSearch } from "react-icons/go";
+import { MdDashboard } from "react-icons/md";
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext';
+import SignIn from '../pages/SignIn';
+import AuthServices from '../services/AuthServices';
 
 function Header() {
     const [ nav, setNav ] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const { isAuthenticated, user, setUser, setIsAuthenticated } = useContext(AuthContext);
+    const userModalHandle = () =>{
+        setShowModal(!showModal);
+        setNav(false)
+    } ;
 
     const navHandle = () => setNav(!nav);
+
+
+    const signout = () => {
+        AuthServices.signout()
+            .then(data => {
+                console.log(data)
+                setIsAuthenticated(data.isAuthenticated);
+                setUser(data.user);
+                //history.push('/')
+            })
+    }
 
 
     return (
@@ -19,8 +41,14 @@ function Header() {
                 <div className="bg-yellow-500/  md:w-1/3 flex justify-end  order-2 md:order-3">
                     <ul className="flex items-center w-2/4 md:w-1/4 justify-around">
                         <li className="text-4xl p-2 cursor-pointer md:hidden" onClick={navHandle}>{nav ? <FaTimes/> : <FaAlignRight className=""/> }</li>
-                        <li><Link to="/" className="md:block items-center hidden text-lg"><FaUserAlt /></Link></li>
+                        
+                        { isAuthenticated ? 
+                            <li  className="md:block items-center hidden text-xl mt-1" ><MdDashboard /></li>
+                        : 
+                            <li onClick={() => userModalHandle()} className="md:block items-center hidden text-lg" ><FaUserAlt /></li>
+                        }
                         <li><Link to="/cart" className="md:block items-center hidden text-lg"><FaShoppingBag /></Link></li>
+                        { isAuthenticated ? <li className="md:block items-center hidden text-xl mt-1" onClick={() => signout()} > <IoExitSharp /> </li>: '' }
                     </ul>
                 </div>
                 
@@ -42,13 +70,18 @@ function Header() {
                         <li><Link to="/">blogs</Link></li>
                         <li><Link to="/">about us</Link></li>
                         <li><Link to="/">contact</Link></li>
-                        <li><Link to="/" className="flex items-center md:hidden"><FaUserAlt />&nbsp;Login </Link></li>
+                        { isAuthenticated ? "" :
+                        <li className="flex items-center md:hidden" onClick={() => userModalHandle()}><FaUserAlt />&nbsp;Login</li>
+                        }
                         <li><Link to="/cart" className="flex items-center md:hidden"><FaShoppingBag />&nbsp;Cart </Link></li>
-                        <li>
-
-                        </li>
+                        { user &&
+                            user.role === "admin" ?
+                                <li><Link to="/admin">Dashboard</Link></li>
+                            : ''
+                        }
                     </ul>
                 </div>
+                <SignIn showModal={showModal} setShowModal={setShowModal} />
         </header>
     )
 }
