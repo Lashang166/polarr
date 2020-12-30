@@ -6,20 +6,26 @@ import { MainContext } from '../context/MainContext'
 import Paper from '../components/Paper'
 import OrderServices from '../services/OrderServices';
 import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 function Checkout() {
     const [address, setAddress] = useState('');
-    const { cart, cartDispatch } = useContext(MainContext);
+    const { cart, cartDispatch, taostDispatch } = useContext(MainContext);
+    const { isAuthenticated } = useContext(AuthContext)
     const history = useHistory();
 
     const onSubHandle = (e) => {
         e.preventDefault();
-        cartDispatch({type: "CART_SHIPPING"})
-        console.log(cart);
-        OrderServices.order(
+        if(isAuthenticated){
+            cartDispatch({type: "CART_SHIPPING"})
+            OrderServices.order(
             cart.cartItems, address, e.target.payment.value, cart.cartCost)
                 .then(data => {console.log(data)})
                 history.push('/dashboard/myorders')
+        }else{
+            taostDispatch({ type: "ALERT_OPEN", payload: "please signin"})
+        }
+
         
     }
 

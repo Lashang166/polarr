@@ -8,8 +8,6 @@ import Product from './pages/Product';
 import Shop from './pages/Shop';
 import DashboardUser from './pages/Dashboard-User';
 import DashboardAdmin from './pages/Dashboard-Admin';
-import OrdersList from './pages/OrdersList';
-import WhichLists from './pages/WhichLists';
 import Checkout from './pages/Checkout';
 
 function Routes() {
@@ -20,7 +18,7 @@ function Routes() {
             <Route path="/product/:id" component={Product} />
             <Route path="/cart" component={Cart} />
             <PrivateRoute path="/dashboard" roles={["user","admin"]} component={DashboardUser}/>
-            <PrivateRoute path="/checkout" roles={["user","admin"]}  component={Checkout} />
+            <Route path="/checkout" roles={["user","admin"]}  component={Checkout} />
             <PrivateRoute path="/admin" roles={["admin"]} component={DashboardAdmin}/>
         </Switch>
     )

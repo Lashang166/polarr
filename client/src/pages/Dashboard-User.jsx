@@ -8,6 +8,7 @@ import PofilePaper from '../components/PofilePaper'
 import { AuthContext } from '../context/AuthContext';
 import AllOrders from "./AllOrders";
 import AllProducts from "./AllProducts";
+import AddProduct from "./AddProduct";
 
 
 function DashboardUser() {
@@ -29,6 +30,7 @@ function DashboardUser() {
               <PrivateRoute path="/dashboard/mywhich" roles={["user", "admin"]} component={WhichLists}/>
               <PrivateRoute path="/dashboard/allOrders" roles={["admin"]} component={AllOrders}/>
               <PrivateRoute path="/dashboard/allproducts" roles={["admin"]} component={AllProducts}/>
+              <PrivateRoute path="/dashboard/addproduct" roles={["admin"]} component={AddProduct}/>
 
             </div>
           </div>

@@ -7,11 +7,13 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext';
 import SignIn from '../pages/SignIn';
 import AuthServices from '../services/AuthServices';
+import { useHistory } from 'react-router-dom';
 
 function Header() {
     const [ nav, setNav ] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const { isAuthenticated, user, setUser, setIsAuthenticated } = useContext(AuthContext);
+    const history = useHistory();
     const userModalHandle = () =>{
         setShowModal(!showModal);
         setNav(false)
@@ -26,7 +28,7 @@ function Header() {
                 console.log(data)
                 setIsAuthenticated(data.isAuthenticated);
                 setUser(data.user);
-                //history.push('/')
+                history.push('/')
             })
     }
 
@@ -43,7 +45,7 @@ function Header() {
                         <li className="text-4xl p-2 cursor-pointer md:hidden" onClick={navHandle}>{nav ? <FaTimes/> : <FaAlignRight className=""/> }</li>
                         
                         { isAuthenticated ? 
-                            <li  className="md:block items-center hidden text-xl mt-1" ><Link to="/dashboard"><MdDashboard /></Link> </li>
+                            <li  className="md:block items-center hidden text-xl mt-1" ><Link to="/dashboard/myorders"><MdDashboard /></Link> </li>
                         : 
                             <li onClick={() => userModalHandle()} className="md:block items-center hidden text-lg" ><FaUserAlt /></li>
                         }
@@ -74,11 +76,6 @@ function Header() {
                         <li className="flex items-center md:hidden" onClick={() => userModalHandle()}><FaUserAlt />&nbsp;Login</li>
                         }
                         <li><Link to="/cart" className="flex items-center md:hidden"><FaShoppingBag />&nbsp;Cart </Link></li>
-                        { user &&
-                            user.role === "admin" ?
-                                <li><Link to="/admin">Dashboard</Link></li>
-                            : ''
-                        }
                     </ul>
                 </div>
                 <SignIn showModal={showModal} setShowModal={setShowModal} />

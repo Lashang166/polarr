@@ -123,12 +123,6 @@ router.get('/relate', async (req, res) => {
     }
 })
 
-//search
-// router.get('/search', (req, res) => {
-//     const field = req.query.name;
-//     Product.find({$text: { $search: field}})
-//         .then(data => res.send({data}))
-//         .catch(err => res.send({err}))
-// })
+
   
 module.exports = router;        

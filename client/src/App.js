@@ -1,7 +1,8 @@
 import Routes from "./routes";
 import {BrowserRouter as Router } from 'react-router-dom';
 import MainContextProvider from "./context/MainContext";
-
+import Toast from './components/Toast'
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -9,6 +10,8 @@ function App() {
       <Router>
         <MainContextProvider>
           <Routes />
+          <Footer />
+          <Toast />
         </MainContextProvider>
       </Router>
   );

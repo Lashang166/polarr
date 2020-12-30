@@ -3,6 +3,7 @@ import IntroSection from "../components/IntroSection";
 import Header from "../components/Header";
 import MainSection from "../components/MainSection";
 import ItemCard from "../components/ItemCard";
+import { GoSearch } from "react-icons/go";
 
 //import products from "../product"
 import ProductServices from "../services/ProductServices";
@@ -14,26 +15,43 @@ function Shop() {
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState("");
   const [result, setResult] = useState(0);
+  const [clear, setClear] = useState(false);
+  const [relate, setRelate] = useState('');
 
   useEffect(() => {
     ProductServices.fetch(page, category, sort).then((data) => {
-      console.log(data.data.products);
       productDispatch({ type: "PRODUCT_FETCH", payload: data.data.products });
       setResult(data.result);
     });
   }, [sort, page, category]);
 
+  useEffect(() => {
+    if(clear){
+        ProductServices.relate(relate)
+        .then(data => {
+          productDispatch({ type: "PRODUCT_FETCH", payload: data.data });
+        })
+      setClear(false);
+    }
+  },[clear])
+
+  const cate = (e) => {
+      setRelate(e.target.value);
+      setClear(true)
+  }
+
+
   return (
-    <>
+    <div className="bg-gray-100 "> 
       <Header />
       <IntroSection>shop</IntroSection>
 
-      <section className="bg-red-600/ ">
+      <section className="pt-10">
         <MainSection>
           {/* -----items------ */}
-          <div className="w-full md:w-3/4 md:order-2 flex flex-col ">
+          <div className="w-full md:w-3/4 md:order-2 flex flex-col bg-gray-100  rounded-sm">
             <div className="flex p-2 box">
-              <h1 className="flex-grow text-lg font-thin">1-12 show of 18</h1>
+              <h1 className="flex-grow text-lg font-thin">1-12 show of {products && products.products.length}</h1>
               <select value={sort} onChange={(e) => setSort(e.target.value)}>
                 <option value="">Newest</option>
                 <option value="sort=createAt">Oldest</option>
@@ -51,7 +69,7 @@ function Shop() {
                 </div>
               ))}
             </div>
-            <div className="w-2/5 mx-auto h-10 flex items-center justify-center my-3">
+            <div className="w-2/5 mx-auto h-10 flex items-center justify-center mt-5">
               {result < page * 9 ? (
                 ""
               ) : (
@@ -66,7 +84,7 @@ function Shop() {
           </div>
 
           {/* -----filter------- */}
-          <div className="w-full md:order-1 md:w-1/4 mt-10 md:mt-0">
+          <div className="w-full md:order-1 md:w-1/4 mt-10 md:mt-0 bg-yellow-400/ rounded-sm">
             <div className="flex flex-col p-2 border-b border-gray-50">
               <h1 className="text-2xl font-semibold">Filter</h1>
             </div>
@@ -96,34 +114,30 @@ function Shop() {
               </ul>
             </div>
             <div className="flex flex-col p-2 border-b border-gray-50">
-              <h1 className="text-xl font-semibold">Size</h1>
+              <h1 className="text-xl font-semibold">Category</h1>
               <ul className="pl-2 text-gray-600">
                 <li className="flex items-center">
-                  <input type="checkbox" className="w-4 h-4 mr-1" />
-                  <p>XS</p>
+                  <button onClick={(e) => cate(e)} value="men" className="focus:outline-none hover:text-red-300 mt-2">Man</button>
                 </li>
                 <li className="flex items-center">
-                  <input type="checkbox" className="w-4 h-4 mr-1" />
-                  <p>S</p>
-                </li>
-                <li className="flex items-center">
-                  <input type="checkbox" className="w-4 h-4 mr-1" />
-                  <p>M</p>
-                </li>
-                <li className="flex items-center">
-                  <input type="checkbox" className="w-4 h-4 mr-1" />
-                  <p>L</p>
-                </li>
-                <li className="flex items-center">
-                  <input type="checkbox" className="w-4 h-4 mr-1" />
-                  <p>XL</p>
+                  <button onClick={(e) => cate(e)}  value="woman" className="focus:outline-none hover:text-red-300 mt-2">Woman</button>
                 </li>
               </ul>
+            </div>
+            <div className="flex flex-col p-2 border-b border-gray-50">
+              <div class="flex items-center">            
+                       <input 
+                           type="text" 
+                           class="rounded-md h-10 placeholder-gray-400 ring-1 ring-gray-200 w-3/4 pl-1 focus:outline-none"
+                           placeholder="Search"
+                       />
+                       <button className="text-lg"><GoSearch/></button>         
+              </div>
             </div>
           </div>
         </MainSection>
       </section>
-    </>
+    </div>
   );
 }
 

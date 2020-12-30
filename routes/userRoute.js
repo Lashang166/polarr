@@ -33,7 +33,7 @@ router.post('/signin', passport.authenticate('local', {session : false}), (req, 
         const {_id, username, role} = req.user;
         const token = signToken(_id);
         res.cookie('access_token', token, {httpOnly: true, sameSite: true});
-        res.status(200).json({isAuthenticated: true, user : {username, role,}})
+        res.status(200).json({isAuthenticated: true, user : {username, role}, message: "successfully"} )
     }
 })
 
@@ -52,18 +52,10 @@ router.get('/authenticated',  passport.authenticate('jwt', {session : false}), (
     res.status(200).json({isAuthenticated : true, user : {username, role}});
 })
 
-/*add which list*/
-// router.post('/addwhish'), passport.authenticate('jwt', {session : false}), async (req, res) => {
-//     try {
-//         const { item } = req.body;
-//         const Item = await User.findByIdAndUpdate({_id: req.params.id})
+/*add whish list*/
 
-
-//     } catch (error) {
-//         res.status(404).json({
-//             status: 'fail',
-//             message: error
-//     }
-// }
+router.patch('/addlist', passport.authenticate('jwt', {session : false}), (req, res) => {
+    
+})
 
 module.exports = router;

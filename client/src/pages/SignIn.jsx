@@ -2,6 +2,7 @@ import React,{ useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Modal from '../components/Modal'
 import { AuthContext } from '../context/AuthContext';
+import { MainContext } from '../context/MainContext';
 import AuthSevices from '../services/AuthServices';
 
 function SignIn({ showModal, setShowModal}) {
@@ -9,6 +10,7 @@ function SignIn({ showModal, setShowModal}) {
     const [user, setUser] = useState({ email: "", username: "", password: "" });
     const history = useHistory();
     const authContext = useContext(AuthContext);
+    const { taostDispatch } = useContext(MainContext)
 
     const onChange = (e) => {
         setUser({...user, [e.target.name] : e.target.value})
@@ -21,9 +23,10 @@ function SignIn({ showModal, setShowModal}) {
         e.preventDefault();
         AuthSevices.signin(user)
           .then(data => {
-            const { isAuthenticated, user } = data;
+            const { isAuthenticated, user, message } = data;
             authContext.setUser(user);
             authContext.setIsAuthenticated(isAuthenticated);
+            taostDispatch({ type: "ALERT_OPEN", payload: message })
             setShowModal(false)
             clearForm();
             history.push("/shop");
@@ -37,6 +40,7 @@ function SignIn({ showModal, setShowModal}) {
         AuthSevices.signup(user)
         .then(data => {
           console.log(data)
+          taostDispatch({ type: "ALERT_OPEN", payload: data.message.msg })
           clearForm();
           setShowModal(false)
           history.push("/");

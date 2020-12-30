@@ -21,31 +21,27 @@ function CartItem({ item }) {
                     <div className="w-1/4d bg-yellow-200a">
                             <img 
                             src={item.image}
-                            alt="1"
+                            alt="1" 
                             className="w-24 h-32"
                             />
                     </div>
-                    <div className="flex flex-wrap w-2/4 pl-5 items-center space-x-1">
-                        <h1 className="flex-auto text-xl font-semibold">
+                    <div className="flex flex-wrap w-2/4 pl-5 items-center space-x-4">
+                        <h1 className="flex-auto/ text-xl font-semibold">
                              {item.name}
                         </h1>
-                        <p>{item.size}</p>
-                        <p>{item.color}</p>
+                        <p>Size: {item.size}</p>
+                        <div className="flex space-x-3 items-center">
+                        Color: 
+                        <div 
+                            className={`w-9 h-9 border-2 ml-1 text-xl bg-${item.color} flex items-center justify-center rounded-sm`}
+                        ></div>
+                        </div>
                         <div className="text-xl font-semibold text-gray-500">
                             ${item.price}
                         </div>
+                        <div>QTY: {item.qty}</div>
                     </div>
-                    <div className="flex flex-grow justify-end space-x-3 pr-3 bg-green-40d0 items-center ">
-                        <button 
-                            className="w-9 h-9 flex items-center justify-center bg-black text-white rounded-sm text-xl font-semibold"
-                            onClick={() => increaseHandle(item)}
-                        >-</button>
-                        <h2 className="w-9 h-9 text-xl bg-gray-300 flex items-center justify-center rounded-sm">{item.qty}</h2>
-                        <button 
-                            className="w-9 h-9 flex items-center justify-center bg-black text-white rounded-sm text-xl font-semibold"
-                            onClick={() => increaseHandle(item)}
-                        >+</button>
-                    </div>
+                    
                 </div>
             </div>
     )

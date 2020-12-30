@@ -1,8 +1,9 @@
-import React, { createContext, useReducer} from 'react';
+import React, { createContext, useReducer, useState} from 'react';
 
 
 import cartReducer from './reducers/cartReducer';
 import productReducer from './reducers/productReducer';
+import toastReducer from './reducers/toastReducer';
 
 export const MainContext = createContext();
 
@@ -15,10 +16,14 @@ function MainContextProvider(props) {
         products:[],
         product:null,
         
-    })
+    });
+    const [toast , taostDispatch] = useReducer(toastReducer, {
+        open: false,
+        msg: ""
+    });
 
     return (
-        <MainContext.Provider value={{cart, cartDispatch, products, productDispatch}}>
+        <MainContext.Provider value={{toast, taostDispatch, cart, cartDispatch, products, productDispatch}}>
             { props.children}
         </MainContext.Provider>
     )

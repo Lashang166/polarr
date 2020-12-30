@@ -26,14 +26,14 @@ function Product( props ) {
        
     };
 
-    const { cart, cartDispatch, products, productDispatch } = useContext(MainContext);
+    const { cartDispatch, products, productDispatch, taostDispatch } = useContext(MainContext);
 
     const [image, setImage] = useState('');
     const [qty, setQty] = useState(1);
     const id = props.match.params.id;
     const [add, setAdd] = useState(false);
     const [relate, setRelate] = useState(null);
-    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [itemSelected, setItemSelected] = useState({
         id: '',
@@ -47,26 +47,28 @@ function Product( props ) {
 
 
     useEffect(() => {
-        ProductServices.fetchOne(id)
-            .then(data => {
-                productDispatch({ type: "PRODUCT_FETCHONE", payload: data.data})
-                setImage(data.data.images[0])
-                setItemSelected(prev => ({...prev,
-                    color: data.data.colors[0],
-                    size: data.data.size[0]
-                }));   
-                    ProductServices.relate(data.data.categories)
-                        .then(data => setRelate(data.data))
-            })
+            ProductServices.fetchOne(id)
+                .then(data => {
+                    productDispatch({ type: "PRODUCT_FETCHONE", payload: data.data})
+                    setImage(data.data.images[0])
+                    setItemSelected(prev => ({...prev,
+                        color: data.data.colors[0],
+                        size: data.data.size[0]
+                    }));   
+                        ProductServices.relate(data.data.categories)
+                            .then(data => setRelate(data.data))
+                })
+                setLoading(false)
+        
 
-    }, [])
+    }, [loading])
 
 
 
     useEffect(() => {
         if(add === true) {
             cartDispatch({ type: "CART_ADD" , payload: itemSelected})
-            console.log(cart);
+            taostDispatch({ type: "ALERT_OPEN", payload: "Add To Cart" })
             setAdd(false);
         }
     }, [add])
@@ -84,7 +86,6 @@ function Product( props ) {
             qty,
             image: products.product &&  products.product.images[0],
         }));
-        console.log(itemSelected);
         setAdd(true);
     }
 
@@ -135,7 +136,7 @@ function Product( props ) {
                    { products.product && products.product.colors.map((c, i) => (
                         <div 
                             key={i} 
-                            className={`w-9 h-9 text-xl bg-${c} flex items-center justify-center rounded-sm`}
+                            className={`w-9 h-9 ring-1 ring-gray-200 text-xl bg-${c} flex items-center justify-center rounded-sm`}
                             onClick={() => colorHandle(c)}
                         ></div>
                    ))}
@@ -213,7 +214,7 @@ function Product( props ) {
                     
                     {relate && relate.map((item, i) => (
                         <div key={i} className="col-span-6 sm:col-span-3 bg-white sm:px-4">
-                            <ItemCard item={item}/>
+                            <ItemCard item={item} setLoading={setLoading}/>
                         </div>
                     )) }
 
@@ -224,7 +225,6 @@ function Product( props ) {
        
         
       </MainSection>   
-      <Footer />
     </>
   );
 }

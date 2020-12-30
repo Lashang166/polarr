@@ -16,11 +16,11 @@ const db = process.env.MONGODB_URL;
 mongosoe.connect(db,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true
 },(err) => console.log("db", err));
 
 app.use('/user', require('./routes/userRoute'));
 app.use('/product', require('./routes/productRoute'));
-app.use('/category', require('./routes/categoryRoute'));
 app.use('/order', require('./routes/ordersRoute'));
 
 
