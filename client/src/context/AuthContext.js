@@ -9,20 +9,22 @@ const AuthContextProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false)
 
-    useEffect(() => {   
+    useEffect(() => { 
         AuthServices.isAuthenticated()
-            .then(data => {
-                setUser(data.user);
-                setIsAuthenticated(data.isAuthenticated);
-                console.log(user, isAuthenticated)
-                console.log('auth')
-                setIsLoaded(true)
-           
+            .then(data => {               
+                    setUser(data.user);
+                    setIsAuthenticated(data.isAuthenticated);
+                    console.log(user, isAuthenticated)
+                    console.log('auth')
+                    setIsLoaded(true)
+                
             }).catch(err => {
                 console.log(err)
                 console.log(user, isAuthenticated)
                 setIsLoaded(true)
             })
+       
+            
     },[]);
 
     return (

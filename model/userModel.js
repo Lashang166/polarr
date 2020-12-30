@@ -18,13 +18,16 @@ const UserSchema = new mongoose.Schema({
         type: String
     },
     wishList: {
-        type: [{ type: Object }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product'}],
     },
     role: {
         type: String,
         enum: ['user', 'admin'],
         require: true,
         default: "user"
+    },
+    orders: {
+        type: [{ type: Object }]
     }
     
 })

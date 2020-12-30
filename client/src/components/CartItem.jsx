@@ -4,10 +4,10 @@ import { MainContext } from '../context/MainContext'
 function CartItem({ item }) {
 
     const { cartDispatch, cart } = useContext(MainContext);
-
+    console.log(cart);
     const removeHandle = (item) => {
         cartDispatch({ type: "CART_REMOVE" , payload: item});
-    }
+    } 
 
     const increaseHandle = () => cartDispatch({ type: "CART_INCREASE", payload: item});
     const decreaseHandle = () => cartDispatch({ type: "CART_DECREASE", payload: item});

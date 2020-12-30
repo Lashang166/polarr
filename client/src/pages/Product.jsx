@@ -49,7 +49,6 @@ function Product( props ) {
     useEffect(() => {
         ProductServices.fetchOne(id)
             .then(data => {
-                console.log(data.data);
                 productDispatch({ type: "PRODUCT_FETCHONE", payload: data.data})
                 setImage(data.data.images[0])
                 setItemSelected(prev => ({...prev,

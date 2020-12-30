@@ -4,16 +4,9 @@ import React, { createContext, useReducer} from 'react';
 import cartReducer from './reducers/cartReducer';
 import productReducer from './reducers/productReducer';
 
-
-
-
-
-
-
-
 export const MainContext = createContext();
 
-function MainContextProvider(props) {
+function MainContextProvider(props) { 
     const [cart, cartDispatch] = useReducer(cartReducer, {
         cartItems:[], 
         cartCost: 0

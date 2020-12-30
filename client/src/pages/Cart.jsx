@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import CartItem from '../components/CartItem'
 import Header from '../components/Header'
 import IntroSection from '../components/IntroSection'
@@ -49,7 +50,7 @@ function Cart() {
                                 <h1 className="text-black text-xl font-semibold">${cart.cartCost + 30}</h1>
                             </div>
                             <div className="flex p-2 w-full justify-between px-5 py-5">
-                                <button className="w-full h-full p-3 hover:text-white transition-opacity hover:bg-black px-2 uppercase font-semibold text-center border-2">process to checkout</button>
+                                <Link to="/checkout" className="w-full h-full p-3 hover:text-white transition-opacity hover:bg-black px-2 uppercase font-semibold text-center border-2">process to checkout</Link>
                             </div>
                         </div>
                     </div>

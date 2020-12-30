@@ -26,7 +26,7 @@ function SignIn({ showModal, setShowModal}) {
             authContext.setIsAuthenticated(isAuthenticated);
             setShowModal(false)
             clearForm();
-            history.push("/");
+            history.push("/shop");
           }).catch(err => {
             console.log(err);
         })

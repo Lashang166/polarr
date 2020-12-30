@@ -29,17 +29,18 @@ const cartReducer = (state, action) => {
                     };
         break;
 
-        case "CART_INCREASE":
+        case "CART_INCREASE":          
             const i  = action.payload;
             const findItem = state.cartItems.map((stateItem) => {
-                if(stateItem.name === i.name && stateItem.size === i.size && stateItem.color === i.color){
-                    stateItem.qty += i.qty;
+                if(stateItem.cartId === i.cartId){
+                    stateItem.qty = stateItem.qty++
                 }
                 return stateItem
             });
-            return {...state, cartItems: findItem, cartCost: state.cartCost + i.price}
-
-        
+            console.log(findItem.qty+1);
+            return {...state, 
+                    cartItems: findItem,
+                    cartCost: state.cartCost + i.price }
 
         default:
             return state;

@@ -52,5 +52,18 @@ router.get('/authenticated',  passport.authenticate('jwt', {session : false}), (
     res.status(200).json({isAuthenticated : true, user : {username, role}});
 })
 
+/*add which list*/
+// router.post('/addwhish'), passport.authenticate('jwt', {session : false}), async (req, res) => {
+//     try {
+//         const { item } = req.body;
+//         const Item = await User.findByIdAndUpdate({_id: req.params.id})
+
+
+//     } catch (error) {
+//         res.status(404).json({
+//             status: 'fail',
+//             message: error
+//     }
+// }
 
 module.exports = router;

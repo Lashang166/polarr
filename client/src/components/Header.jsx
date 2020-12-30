@@ -43,7 +43,7 @@ function Header() {
                         <li className="text-4xl p-2 cursor-pointer md:hidden" onClick={navHandle}>{nav ? <FaTimes/> : <FaAlignRight className=""/> }</li>
                         
                         { isAuthenticated ? 
-                            <li  className="md:block items-center hidden text-xl mt-1" ><MdDashboard /></li>
+                            <li  className="md:block items-center hidden text-xl mt-1" ><Link to="/dashboard"><MdDashboard /></Link> </li>
                         : 
                             <li onClick={() => userModalHandle()} className="md:block items-center hidden text-lg" ><FaUserAlt /></li>
                         }
