@@ -28,24 +28,31 @@ function SignIn({ showModal, setShowModal}) {
             authContext.setIsAuthenticated(isAuthenticated);
             taostDispatch({ type: "ALERT_OPEN", payload: message })
             setShowModal(false)
+            setTimeout(() => {
+                history.push("/shop");
+            },500)
             clearForm();
-            history.push("/shop");
-          }).catch(err => {
+        }).catch(err => {
             console.log(err);
+            taostDispatch({ type: "ALERT_OPEN", payload: "check username and password" })
         })
+
     };
 
     const signUp = (e) => {
         e.preventDefault();
         AuthSevices.signup(user)
         .then(data => {
-          console.log(data)
+        
           taostDispatch({ type: "ALERT_OPEN", payload: data.message.msg })
           clearForm();
           setShowModal(false)
-          history.push("/");
+          setTimeout(() => {
+            history.push("/");
+        },500)
         }).catch(err => {
             console.log(err);
+            taostDispatch({ type: "ALERT_OPEN", payload: "check your infomation" })
         })
     }
 
@@ -74,6 +81,7 @@ function SignIn({ showModal, setShowModal}) {
                         placeholder="USERNAME"
                         value={user.username} 
                         onChange={onChange}
+                        required
                         />
                     <input 
                         type="password" 
@@ -83,18 +91,21 @@ function SignIn({ showModal, setShowModal}) {
                         placeholder="PASSWORD"
                         value={user.password} 
                         onChange={onChange}
+                        required
                         />
                     { 
                         signup ? 
                         <div className="flex flex-col py-3 space-y-2">
                             <input 
-                                type="text" 
+                                type="email" 
                                 name="email" 
                                 id="email" 
                                 className="h-10 w-3/4 mx-auto p-1 focus:outline-none" 
                                 placeholder="EMAIL" 
                                 value={user.email} 
                                 onChange={onChange}
+                                required
+
                                 />
                             <button 
                                 className="w-3/4 mx-auto h-12 hover:bg-black rounded-sm hover:text-white uppercase bg-gray-200 transition-colors"

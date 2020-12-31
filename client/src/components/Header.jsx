@@ -12,6 +12,8 @@ import { useHistory } from 'react-router-dom';
 function Header() {
     const [ nav, setNav ] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [isScroll, setIsScroll] = useState(false);
+
     const { isAuthenticated, user, setUser, setIsAuthenticated } = useContext(AuthContext);
     const history = useHistory();
     const userModalHandle = () =>{
@@ -30,11 +32,21 @@ function Header() {
                 setUser(data.user);
                 history.push('/')
             })
+    };
+
+    const onScrollHandle = () => {
+         if(window.scrollY >= 100){
+             setIsScroll(true)
+         }else{
+             setIsScroll(false)
+         }
     }
 
+    window.addEventListener('scroll', onScrollHandle)
 
     return (
-        <header  className="bg-white shadow-sm/ sticky z-50 border-b border-gray-300  md:border-transparent ">
+        <>
+        <header  className="bg-white shadow-sm/ sticky top-0 md:relative z-50 border-b border-gray-300  md:border-transparent ">
             <div className=" w-full flex justify-between h-16 md:h-20 px-5 md:px-28  border-b border-gray-300  ">
                 <div className="flex md:justify-center w-2/4 md:w-1/3 order-1 md:order-2">
                     <h1 className="text-4xl font-bold uppercase flex items-center p-4 font-serif md:hidden">P.</h1>
@@ -54,18 +66,21 @@ function Header() {
                     </ul>
                 </div>
                 
-                    <div class="hidden md:w-1/3 md:flex items-center">
+                    <div className="hidden md:w-1/3 md:flex items-center">
                        
                         <input 
                             type="text" 
-                            class="rounded-md h-10 placeholder-gray-400 ring-1 ring-transparent w-2/4 focus:outline-none"
+                            className="rounded-md h-10 placeholder-gray-400 ring-1 ring-transparent w-2/4 focus:outline-none"
                             placeholder="Search"
                         />
                         <button className="text-lg"><GoSearch/></button>
                         
                     </div>
             </div>
-            <div className={`absolute z-50 md:static top-16 ${nav ? "left-0" : "-left-full"} md:transition-none transition-all ease-in duration-700/ flex flex-col md:flex-row md:justify-center bg-gray-100 md:bg-white h-screen md:h-10 w-full `}>
+                
+                <SignIn showModal={showModal} setShowModal={setShowModal} />
+        </header>
+                <div style={{zIndex: "40"}}  className={`absolute z-40/ md:sticky md:top-0 top-16 ${nav ? "left-0" : "-left-full"} md:transition-none transition-all ease-in duration-700/ flex flex-col md:flex-row md:justify-center bg-gray-100 md:bg-white h-screen md:${isScroll ? 'h-16 border-b border-gray-300' : 'h-10'} w-full `}>
                     <ul className="uppercase font-semibold text-lg flex flex-col md:flex-row items-center space-y-16 md:space-y-0 w-full p-10 md:p-0  md:justify-between lg:ml-48  md:w-3/5 md:pt-5 md:mb-5">
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/shop">shop</Link></li>
@@ -78,8 +93,9 @@ function Header() {
                         <li><Link to="/cart" className="flex items-center md:hidden"><FaShoppingBag />&nbsp;Cart </Link></li>
                     </ul>
                 </div>
-                <SignIn showModal={showModal} setShowModal={setShowModal} />
-        </header>
+
+
+        </>
     )
 }
 

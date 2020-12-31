@@ -46,7 +46,7 @@ function Shop() {
       <Header />
       <IntroSection>shop</IntroSection>
 
-      <section className="pt-10">
+      <section className="pt-10 relative">
         <MainSection>
           {/* -----items------ */}
           <div className="w-full md:w-3/4 md:order-2 flex flex-col bg-gray-100  rounded-sm">
@@ -84,7 +84,7 @@ function Shop() {
           </div>
 
           {/* -----filter------- */}
-          <div className="w-full md:order-1 md:w-1/4 mt-10 md:mt-0 bg-yellow-400/ rounded-sm">
+          <div  className="w-full md:order-1 md:w-1/4 mt-10 md:mt-0  md:sticky z-40 md:top-16 md:h-2/4 rounded-sm">
             <div className="flex flex-col p-2 border-b border-gray-50">
               <h1 className="text-2xl font-semibold">Filter</h1>
             </div>
@@ -125,10 +125,10 @@ function Shop() {
               </ul>
             </div>
             <div className="flex flex-col p-2 border-b border-gray-50">
-              <div class="flex items-center">            
+              <div className="flex items-center">            
                        <input 
                            type="text" 
-                           class="rounded-md h-10 placeholder-gray-400 ring-1 ring-gray-200 w-3/4 pl-1 focus:outline-none"
+                           className="rounded-md h-10 placeholder-gray-400 ring-1 ring-gray-200 w-3/4 pl-1 focus:outline-none"
                            placeholder="Search"
                        />
                        <button className="text-lg"><GoSearch/></button>         

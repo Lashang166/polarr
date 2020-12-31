@@ -32,7 +32,7 @@ function Modal({ showModal, setShowModal, children}) {
         <div ref={modalRef} onClick={closeModal} className={`${showModal ? "block" : "hidden"} fixed min-w-full h-full overflow-auto bg-black bg-opacity-75 top-0 left-0`}>
             <div className="bg-white w-2/5 mx-auto my-48 p-3 rounded-sm transition-all ease-in duration-300">
                 <div className="flex w-full justify-end text-xl font-bold">
-                    <button onClick={() => setShowModal(prev => !prev)} class="cursor-pointer">&times; </button> 
+                    <button onClick={() => setShowModal(prev => !prev)} className="cursor-pointer">&times; </button> 
                 </div>
                 {children}
             </div>

@@ -14,7 +14,7 @@ function Cart() {
         <>
             <Header />
             <IntroSection>Cart</IntroSection>
-                <div className="bg-red-600/ p-2 flex mx-auto mt-7 w-10/12 space-x-4"  style={{minWidth: "1280px"}}>
+                <div className="bg-red-600/ p-2 flex mx-auto mt-7 w-10/12 space-x-4 relative"  style={{minWidth: "1280px"}}>
                     {/* ----items---- */}
                     <div className="w-4/6 bg-green-400/ flex flex-col ">
                         {
@@ -27,9 +27,9 @@ function Cart() {
                     </div>   
 
                     {/* =====process------ */}
-                    <div className="bg-blue-400/ w-2/6 shadow-md" style={{minWidth: "388px"}}>
+                    <div className="bg-blue-400/ w-2/6 shadow-md " style={{minWidth: "388px"}}>
 
-                        <div className="flex flex-col bg-white sticky top-0 w-full mt-4 ">
+                        <div className="flex flex-col bg-white sticky top-16 w-full mt-4 ">
                             <div className="bg-white shadow-sm px-5 pt-2">
                                 <h3 className="text-xl font-bold uppercase">cart total</h3>
                             </div>

@@ -5,7 +5,6 @@ import { BsFillPlusSquareFill, BsFillDashSquareFill, BsFillHeartFill } from "rea
 import ItemCard from "../components/ItemCard";
 
 import { MainContext } from "../context/MainContext";
-import Footer from '../components/Footer';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"

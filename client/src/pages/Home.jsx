@@ -24,7 +24,7 @@ function Home() {
 
     
     const [products, setProducts] = useState([]);
-    const [sort, setSort] = useState("");
+    const [sort, setSort] = useState("sort=createAt");
     const [page, setPage] = useState(1);
     const [category, setCategory] = useState("");
 
@@ -64,6 +64,32 @@ function Home() {
                                 <ItemCard item={item} />
                             </div>
                         ))}
+                    </div>
+                </div>
+                <div className="mt-14 w-full bg-white px-2 py-3 rounded-sm">
+                    <div className="font-meduin text-center">
+                        <h1 className="text-2xl">Summer 17/18 Collection</h1>
+                        <p>ipsum dolor sit amet consectetur adipisicing elit. Temporibus, aliquam voluptatum</p>
+                    </div>
+                    <div className="grid grid-cols-12 grid-rows-3 mt-7 gap-1">
+                        <div className="col-span-6 row-span-2">
+                            <img 
+                                src="https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?ixlib=rb-1.2.1&auto=format&fit=crop&w=534&q=80" 
+                                className="min-h-full min-w-full"
+                            />
+                        </div>
+                        <div className="col-span-6  row-span-1">
+                            <img 
+                                src="https://images.unsplash.com/photo-1484328256245-34b71758c30b?ixlib=rb-1.2.1&auto=format&fit=crop&w=552&q=80" 
+                                className="min-h-full min-w-full"
+                            />
+                        </div>
+                        <div className="col-span-6 row-span-1">
+                            <img 
+                                src="https://images.unsplash.com/photo-1490725263030-1f0521cec8ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=542&q=80" 
+                                className="min-h-full min-w-full"
+                            />
+                        </div>
                     </div>
                 </div>
                 </MainSection>

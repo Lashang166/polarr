@@ -35,7 +35,7 @@ function ItemCard({ item, setLoading }) {
         setAdd(true);
     }
     return (
-            <div className="relative overflow-hidden max-w-full">
+            <div className="relative overflow-hidden bg-white max-w-full shadow-sm">
                 <div className="w-full h-full bg-white absolute opacity-0 hover:opacity-75 flex flex-col justify-center">
                     <button onClick={() => addtoCart()} className="w-full h-10 bg-white font-semibold uppercase">add to cart</button>
                 </div>
