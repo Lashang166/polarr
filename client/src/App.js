@@ -11,7 +11,7 @@ function App() {
         <MainContextProvider>
           <Routes />
           <Footer />
-          <Toast />
+          <Toast />   
         </MainContextProvider>
       </Router>
   );
